@@ -3,7 +3,6 @@
 Repositorio dedicado al estudio y despliegue de herramientas de seguridad, automatización y buenas prácticas en SecOps. En constante evolución.
 
 ## 🛡️ Propósito
-🛡️ Propósito
 Este espacio sirve como laboratorio personal para documentar mi aprendizaje y proyectos en:
 
 Automatización de Seguridad: Scripts y herramientas para optimizar tareas defensivas (SecOps).
