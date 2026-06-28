@@ -17,4 +17,8 @@ Ethical Hacking: Aplicación de metodologías y técnicas aprendidas en el CEH (
 
 Red Team: Ejercicios de emulación de adversarios, pruebas de intrusión y mejora de posturas defensivas.
 
-Desarrollado con pasión por la ciberseguridad.
+✍️ Autor
+Creado por: **DarkPaladinOfChaos**
+
+
+ 
