@@ -9,4 +9,11 @@ Automatizar el análisis de riesgos mediante flujos integrados, evaluando y proc
 Creado por: **DarkPaladinOfChaos**
 
 
+### 🛠️ Tecnologías y Herramientas
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=aws,docker,debian,discord,bots,py,elasticsearch,github,gitlab,kali,linux,docker,powershell,sketchup," />
+</p>
+
+
  
