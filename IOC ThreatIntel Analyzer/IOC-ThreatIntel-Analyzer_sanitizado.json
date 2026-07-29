@@ -1,0 +1,328 @@
+{
+  "name": "MACS 580-ACT10-GRUPO7",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=🚨 Reporte Threat Intelligence\n\nIOC: {{ $('Wait1').item.json.IoC }}\n\n\n{{$json.candidates[0].content.parts[0].text}}\n\nPowered by Gemini + VirusTotal",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "name": "Enviar Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2096,
+        128
+      ],
+      "id": "75486212-e1df-4a8c-b242-f3a42ecc6711",
+      "typeVersion": 1.2,
+      "webhookId": "2630e319-4e66-45cb-a8a3-673cb4ba5885",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "YOUR_GEMINI_API_KEY"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Eres un analista senior de Threat Intelligence. Analiza el siguiente IOC y los resultados de VirusTotal.\\n\\nIOC: {{$('Separar IOCs').item.json.ioc}}\\n\\nDatos VirusTotal:\\n{{ JSON.stringify($json) }}\\n\\nResponde ÚNICAMENTE con este formato:\\n\\n🚨 VEREDICTO: MALICIOSO | SOSPECHOSO | LIMPIO\\n🔍 HALLAZGO: máximo 2 oraciones.\\n⚠️ RIESGO: ALTO | MEDIO | BAJO\\n🛡️ ACCIÓN: máximo 3 recomendaciones cortas.\\n\\nReglas:\\n- Máximo 500 caracteres.\\n- No uses Markdown.\\n- No agregues explicaciones adicionales.\\n- No repitas los datos de entrada.\\n- Sé directo y ejecutivo.\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "name": "Gemini Analizar",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1776,
+        128
+      ],
+      "id": "fecfed9e-365b-4848-ba8c-7c67538329e4",
+      "typeVersion": 4.4
+    },
+    {
+      "parameters": {
+        "url": "=https://www.virustotal.com/api/v3/ip_addresses/{{ $json.IoC }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-apikey",
+              "value": "YOUR_VIRUSTOTAL_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "VirusTotal",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1344,
+        16
+      ],
+      "id": "4ffb1dec-1cf2-490a-9e3a-d174126537ac",
+      "typeVersion": 4.4
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -16,
+        0
+      ],
+      "id": "edc7bcaf-f9b0-44ef-8090-1c915a7d92b7",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "url": "=https://www.virustotal.com/api/v3/urls/{{ $json.urlId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-apikey",
+              "value": "YOUR_VIRUSTOTAL_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "VirusTotal1",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1424,
+        304
+      ],
+      "id": "5d646e7f-5bbc-46c9-b9c6-d960b67e844b",
+      "typeVersion": 4.4
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "18caa47f-d2ef-4ce8-b70d-5e8d71ae43c8",
+              "leftValue": "={{ $json[\"Tipo de IOC\"] }}",
+              "rightValue": "IP",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        976,
+        224
+      ],
+      "id": "e662f7b8-f699-40eb-90d6-b84ab1ceeeee",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "formTitle": "Análisis de IoCs",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Tipo de IOC",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "IP"
+                  },
+                  {
+                    "option": "URL"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "IoC",
+              "placeholder": "8.8.8.8   //   patito.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        448,
+        208
+      ],
+      "id": "1a3c7daf-e28c-4cdd-a488-4aecba8dc872",
+      "name": "On form submission1",
+      "webhookId": "97152c02-6845-4175-8189-b0af1aad56f8"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        704,
+        208
+      ],
+      "id": "ebccadfc-d29e-46a8-ba06-da72d0548568",
+      "typeVersion": 1.1,
+      "webhookId": "03a89d98-5062-4ce4-b7e8-87598ed00ad1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ioc = $input.first().json[\"IoC\"];\n\nconst urlId = Buffer\n  .from(ioc)\n  .toString('base64')\n  .replace(/\\+/g, '-')\n  .replace(/\\//g, '_')\n  .replace(/=+$/, '');\n\nreturn [\n  {\n    json: {\n      ...$input.first().json,\n      ioc,\n      iocType: 'URL',\n      urlId,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        320
+      ],
+      "id": "855ca9d4-3fc3-4c13-8cda-571b6616fcf9",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "VirusTotal": {
+      "main": [
+        [
+          {
+            "node": "Gemini Analizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini Analizar": {
+      "main": [
+        [
+          {
+            "node": "Enviar Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "VirusTotal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "VirusTotal1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VirusTotal1": {
+      "main": [
+        [
+          {
+            "node": "Gemini Analizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "nodeGroups": [],
+  "tags": []
+}
