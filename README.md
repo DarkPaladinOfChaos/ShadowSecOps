@@ -12,7 +12,7 @@ Creado por: **DarkPaladinOfChaos**
 ### 🛠️ Tecnologías y Herramientas
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=aws,docker,debian,electron,bots,py,elasticsearch,github,gitlab,kali,linux,docker,powershell,windows,aiscript,fastapi" />
+  <img src="https://skillicons.dev/icons?i=aws,docker,debian,bots,py,elasticsearch,github,gitlab,kali,linux,docker,powershell,windows,aiscript,fastapi" />
 </p>
 
 
