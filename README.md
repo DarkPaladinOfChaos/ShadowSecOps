@@ -9,7 +9,7 @@ Automatizar el análisis de riesgos mediante flujos integrados, evaluando y proc
 Creado por: **DarkPaladinOfChaos**
 
 
-### 🛠️SKILL
+###  Skills
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=aws,docker,debian,bots,py,elasticsearch,github,gitlab,kali,linux,docker,powershell,windows,aiscript,fastapi" />
