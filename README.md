@@ -1,9 +1,9 @@
 # ShadowSecOps
 
-Repositorio dedicado al estudio y despliegue de herramientas de seguridad, automatización y buenas prácticas en SecOps. En constante evolución.
+Laboratorio personal de ciberseguridad: prácticas ofensivas, defensivas, de automatización y aplicaciones con IA, documentadas paso a paso, con evidencia y análisis de resultados.
 
 ## 🛡️ Propósito
-Automatizar el análisis de riesgos mediante flujos integrados, evaluando y procesando indicadores críticos a través de modelos de inteligencia artificial para la generación de reportes estructurados. Este espacio sirve como entorno de prueba y desarrollo para optimizar los tiempos de respuesta operativo, reducir la carga de análisis manual y agilizar la toma de decisiones estratégicas.
+Este repositorio reúne laboratorios prácticos de seguridad ofensiva (por ejemplo: reconocimiento, esteganografía), forense digital (análisis de logs, timeline, OSINT), defensiva, aplicaciones con IA y automatización de flujos SecOps para el procesamiento de indicadores. Cada práctica busca reforzar metodología real de investigación: documentar hipótesis, ejecutar, verificar integridad de la evidencia y analizar los resultados obtenidos, no solo ejecutar comandos.
 
 ✍️ Autor
 Creado por: **DarkPaladinOfChaos**
