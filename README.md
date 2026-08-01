@@ -1,4 +1,4 @@
-# <img width="944" height="1109" alt="photo_2026-06-27_18-42-44" src="https://github.com/user-attachments/assets/f37bb867-a7b1-47ae-adf1-010116370a2f" />
+# ![Uploading codigo-binario.png…]()
 ShadowSecOps
 
 Laboratorio personal de ciberseguridad: prácticas ofensivas, defensivas, de automatización y aplicaciones con IA, documentadas paso a paso, con evidencia y análisis de resultados.
