@@ -1,5 +1,4 @@
-# ![Uploading codigo-binario.png…]()
-ShadowSecOps
+# ShadowSecOps
 
 Laboratorio personal de ciberseguridad: prácticas ofensivas, defensivas, de automatización y aplicaciones con IA, documentadas paso a paso, con evidencia y análisis de resultados.
 
